@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import Game from './components/game';
+import Header from './components/header';
 
 
 class App extends Component {
+
+
+
   render() {
     return (
-      <h1>hello world</h1>
+      <div>
+        <Header />
+        <Game />
+      </div>
     );
   }
 }
