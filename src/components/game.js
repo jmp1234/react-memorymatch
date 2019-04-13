@@ -1,22 +1,53 @@
 import React, {Component} from 'react';
 import '../birds.js';
 import Stats from './stats';
-import Play from './play';
+import birdsArray from '../birds';
+import Cards from './cards';
 
 class Game extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      total_cards: 18,
+      randomPhotos: []
+    }
+  }
+
+  componentDidMount() {
+    this.createCards();
+  }
+
+
+  createCards() {
+    const photos = [...birdsArray, ...birdsArray];
+    const {total_cards} = this.state;
+    const randomizedCards = [];
+    for(let i=0; i<total_cards; i++) {
+        const randomPick = Math.floor(Math.random() * photos.length);
+        randomizedCards.push(photos[randomPick]);
+        photos.splice(randomPick, 1);
+    }
+    this.setState({
+      randomPhotos: [...randomizedCards]
+    })
   }
 
 
   render() {
+    const cards = this.state.randomPhotos.map((card,index) => {
+      return <Cards index={index}cardInfo={this.state}/>
+    })
     return(
       <div className="game-space">
         <Stats />
-        <Play />
+        <div id="game-area">
+          {cards}
+        </div>
       </div>
     )
   }
+
 }
 
 export default Game;

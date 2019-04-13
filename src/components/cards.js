@@ -21,7 +21,7 @@ class Cards extends React.Component {
     return(
       <div className="card">
         <div className="front" style={card_front_style}></div>
-        {/* <div className="back"></div> */}
+        <div className="back"></div>
       </div>
     )
   }
