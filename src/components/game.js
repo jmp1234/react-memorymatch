@@ -10,7 +10,9 @@ class Game extends React.Component {
 
     this.state = {
       total_cards: 18,
-      randomPhotos: []
+      randomPhotos: [],
+      index_clicked: [],
+      card_clicked: null
     }
   }
 
@@ -34,9 +36,19 @@ class Game extends React.Component {
   }
 
 
+
+  card_clicked = (index) => {
+    this.setState({
+      index_clicked: [...this.state.index_clicked, index]
+    })
+  }
+
+
+
   render() {
+    console.log('state: ', this.state)
     const cards = this.state.randomPhotos.map((card,index) => {
-      return <Cards index={index}cardInfo={this.state}/>
+      return <Cards card_clicked={this.card_clicked}index={index}cardInfo={this.state}/>
     })
     return(
       <div className="game-space">
