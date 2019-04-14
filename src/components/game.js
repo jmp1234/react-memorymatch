@@ -11,8 +11,11 @@ class Game extends React.Component {
     this.state = {
       total_cards: 18,
       randomPhotos: [],
-      index_clicked: [],
-      card_clicked: null
+      indexes_clicked: [],
+      first_card_clicked: null,
+      second_card_clicked: null,
+      wait_for_timeout: false,
+      total_possible_matches: 9
     }
   }
 
@@ -37,10 +40,25 @@ class Game extends React.Component {
 
 
 
-  card_clicked = (index) => {
-    this.setState({
-      index_clicked: [...this.state.index_clicked, index]
-    })
+  card_clicked = (card, index) => {
+    if(!this.state.wait_for_timeout) {
+      this.setState({
+        indexes_clicked: [...this.state.indexes_clicked, index],
+      })
+
+      //ASSIGN FIRST CARD CLICKED
+      if(this.state.first_card_clicked === null) {
+        this.setState({
+          indexes_clicked: [...this.state.indexes_clicked, index],
+          first_card_clicked: card
+        })
+      }
+      //ASSIGN SECOND CARD CLICKED
+      else if (index !== this.state.indexes_clicked) {
+        this.state.second_card_clicked = card;
+        // this.stats.attempts++;
+      }
+    }
   }
 
 
